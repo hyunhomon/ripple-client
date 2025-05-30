@@ -24,6 +24,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import HomeIcon from './assets/icons/ic_home.svg';
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -74,6 +76,7 @@ function App(): React.JSX.Element {
 
   return (
     <View style={backgroundStyle}>
+      <HomeIcon width={24} height={24} fill="#000" />
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
