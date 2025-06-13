@@ -8,8 +8,10 @@ module.exports = {
         alias: {
           '@fonts': './src/assets/fonts',
           '@icons': './src/assets/icons',
-          '@components': './src/components',
-          '@pages': './src/pages',
+          '@components': './src/ui/components',
+          '@pages': './src/ui/pages',
+          '@theme': './src/ui/theme',
+          '@navigation': './src/ui/navigation',
           // 필요에 따라 alias 추가
         },
       },

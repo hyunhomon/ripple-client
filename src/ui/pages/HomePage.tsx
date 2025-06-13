@@ -1,12 +1,13 @@
 import React from 'react';
 import { Text, SafeAreaView } from 'react-native';
-import HomeIcon from '@icons/ic_home.svg';
+import NavigationBar from '@components/NavigationComponent';
 
 const HomePage = () => {
     return (
         <SafeAreaView>
-            <Text>홈 화면</Text>
-            <HomeIcon />
+            <NavigationBar
+                activeIndex={0} onPress={()=>{}}
+            />
         </SafeAreaView>
     )
 };

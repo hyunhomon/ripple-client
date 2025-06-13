@@ -5,8 +5,10 @@
     "paths": {
       "@fonts/*": ["src/assets/fonts/*"],
       "@icons/*": ["src/assets/icons/*"],
-      "@components/*": ["src/components/*"],
-      "@pages/*": ["src/pages/*"]
+      "@components/*": ["src/ui/components/*"],
+      "@pages/*": ["src/ui/pages/*"],
+      "@theme/*": ["src/ui/theme/*"],
+      "@navigation/*": ["src/ui/navigation/*"]
     }
   }
 }

@@ -20,8 +20,10 @@ const config = {
     extraNodeModules: {
       '@fonts': path.resolve(__dirname, 'src/assets/fonts'),
       '@icons': path.resolve(__dirname, 'src/assets/icons'),
-      '@components': path.resolve(__dirname, 'src/components'),
-      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@components': path.resolve(__dirname, 'src/ui/components'),
+      '@pages': path.resolve(__dirname, 'src/ui/pages'),
+      '@theme': path.resolve(__dirname, 'src/ui/theme'),
+      '@navigation': path.resolve(__dirname, 'src/ui/navigation'),
     },
   }
 };
