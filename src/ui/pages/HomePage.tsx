@@ -1,15 +1,23 @@
 import React from 'react';
-import { Text, SafeAreaView } from 'react-native';
-import NavigationBar from '@components/NavigationComponent';
+import { View, Text, StyleSheet } from 'react-native';
 
 const HomePage = () => {
-    return (
-        <SafeAreaView>
-            <NavigationBar
-                activeIndex={0} onPress={()=>{}}
-            />
-        </SafeAreaView>
-    )
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>홈 페이지입니다.</Text>
+    </View>
+  );
 };
 
 export default HomePage;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 18,
+  },
+});
