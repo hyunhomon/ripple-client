@@ -32,7 +32,7 @@ const ParticipateComponent = ({ title, time, participate, format, micStatus }: P
 
         <View style={styles.badgeWrapper}>
           <View style={styles.badgeBox}>
-            <Text style={[Typography.bodySmall, { color: colors.onBackground }]}>{participate}</Text>
+            <Text style={[Typography.bodySmall, { color: colors.onSurfaceVariant}]}>{participate}</Text>
           </View>
         </View>
       </View>
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingVertical: 20,
+    borderRadius: 10,
     backgroundColor: colors.surface,
   },
   rowSpaceBetween: {

@@ -1,14 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import MannerStatus from '@components/MannerStatus';
+import { View, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import ProfileBar from '@components/ProfileBar';
+import UserStatsSection from '@components/UserStatsSection';
+import { lightColors as colors } from '@theme/ColorScheme';
 import LevelProgress from '@components/LevelProgress';
 
 const HomePage = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>홈 페이지입니다.</Text>
-      <MannerStatus percent={50} />
-      <LevelProgress level={14} nextXp={140} percent={42} />
+    <View style={{ flex: 1 }}>
+      <SafeAreaView style={{ backgroundColor: colors.surface }}>
+        <ProfileBar
+          name="김현호"
+          profileImage={{ uri: 'https://randomuser.me/api/portraits/men/75.jpg' }}
+        />
+      </SafeAreaView>
+
+      {/* 통계 섹션 */}
+      <UserStatsSection />
     </View>
   );
 };
@@ -18,10 +27,9 @@ export default HomePage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 18,
+    paddingTop: 16, // 필요 시 상태바 아래 여유 공간
+    backgroundColor: '#fff',
+    justifyContent: 'flex-start', // 상단 고정
+    alignItems: 'stretch', // 가로로 꽉 차게
   },
 });

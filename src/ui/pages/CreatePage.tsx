@@ -60,7 +60,6 @@ const CreatePage = () => {
             backgroundColor='primary'             
           />
       </View>
-      
     </View>
   );
 };
@@ -75,7 +74,7 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     flexDirection: 'column',
-    marginBottom: 20,
+    marginBottom: 14,
   },
   inputField: {
     flexDirection: 'row',

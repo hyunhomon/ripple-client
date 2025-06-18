@@ -12,7 +12,7 @@ interface HeaderBarProps {
 const HeaderBar = ({ title, icons }: HeaderBarProps) => {
   return (
     <View style={styles.container}>
-      <Text style={[Typography.headlineMedium, { color: colors.onBackground }]}>{title}</Text>
+      <Text style={[Typography.headlineSmall, { color: colors.onBackground }]}>{title}</Text>
       <View style={styles.iconRow}>
         {icons?.map((icon, index) => (
           <View key={index} style={index !== 0 ? styles.iconGap : undefined}>

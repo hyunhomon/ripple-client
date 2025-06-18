@@ -90,5 +90,6 @@ const styles = StyleSheet.create({
   container: {
     rowGap: 10,
     flexDirection: 'column',
+    paddingHorizontal: 16,
   },
 });

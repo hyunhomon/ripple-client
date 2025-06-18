@@ -33,7 +33,7 @@ const SpectateComponent = ({ title, time, participate, spectate, format, micStat
         </View>
         <View style={styles.badgeWrapper}>
           <View style={styles.badgeBox}>
-            <Text style={[Typography.bodySmall, { color: colors.onBackground }]}>{time}</Text>
+            <Text style={[Typography.bodySmall, { color: colors.onSurfaceVariant }]}>{time}</Text>
           </View>
         </View>
       </View>
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
     backgroundColor: colors.surface,
+    borderRadius: 10
   },
   rowSpaceBetween: {
     flexDirection: 'row',

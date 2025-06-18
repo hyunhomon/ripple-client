@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Typography } from '@theme/Typography';
+import { lightColors as colors } from '@theme/ColorScheme';
 
 interface LevelProgressProps {
-  level: number;      // 현재 레벨
-  nextXp: number;     // 다음 레벨까지 남은 XP
-  percent: number;    // 퍼센트 (0 ~ 100)
+  level: number;
+  nextXp: number;
+  percent: number;
 }
 
 const LevelProgress: React.FC<LevelProgressProps> = ({ level, nextXp, percent }) => {
@@ -13,14 +15,16 @@ const LevelProgress: React.FC<LevelProgressProps> = ({ level, nextXp, percent })
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.levelText}>Lv. {level}</Text>
-        <Text style={styles.xpText}>다음 레벨까지 {nextXp}XP</Text>
+        <Text style={[Typography.titleLarge, { color: colors.onBackground }]}>Lv. {level}</Text>
+        <Text style={[Typography.bodySmall, { color: colors.onSurfaceVariant }]}>
+          다음 레벨까지 {nextXp}XP
+        </Text>
       </View>
       <View style={styles.progressBarBackground}>
         <View
           style={[
             styles.progressBarFill,
-            { width: `${clampedPercent}%` },
+            { width: `${clampedPercent}%`, backgroundColor: colors.primary },
           ]}
         />
       </View>
@@ -30,36 +34,27 @@ const LevelProgress: React.FC<LevelProgressProps> = ({ level, nextXp, percent })
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f9fafa',
+    backgroundColor: colors.surface,
     padding: 16,
     borderRadius: 10,
     width: '100%',
+    gap: 10,
   },
   header: {
-    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 8,
-  },
-  levelText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1a1a1a',
-  },
-  xpText: {
-    fontSize: 12,
-    color: '#999',
   },
   progressBarBackground: {
     height: 10,
     borderRadius: 999,
-    backgroundColor: '#eee',
+    backgroundColor: colors.background,
     overflow: 'hidden',
   },
   progressBarFill: {
     height: '100%',
     borderRadius: 999,
-    backgroundColor: '#4A90E2',
   },
 });
 
