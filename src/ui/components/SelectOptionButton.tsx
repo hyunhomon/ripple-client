@@ -1,54 +1,62 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { Typography } from '@theme/Typography';
 import { lightColors as colors } from '@theme/ColorScheme';
-import { FC } from 'react';
-import { SvgProps } from 'react-native-svg';
 
-interface SelectOptionButtonProps {
-  icon: FC<SvgProps>; // SVG 컴포넌트 타입
-  text: string;
-  onPress? : () => void;
+type SelectOptionButtonProps = {
+  label: string;
+  icon: React.ReactNode;
+  selected?: boolean;
+  onPress: () => void;
+};
+
+export default function SelectOptionButton({
+  label,
+  icon,
+  selected = false,
+  onPress,
+}: SelectOptionButtonProps) {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.button,
+        {
+          backgroundColor: selected ? colors.primary : colors.surface,
+          borderColor: selected ? colors.primary : colors.outline,
+        },
+      ]}
+      onPress={onPress}
+      activeOpacity={0.8}
+    >
+      <View style={styles.inner}>
+        {icon}
+        <Text
+          style={[
+            Typography.bodyMedium,
+            {
+              color: selected ? colors.onPrimary : colors.onSurfaceVariant,
+            },
+          ]}
+        >
+          {label}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
 }
-
-// interface SelectOptionButtonProps {
-//   icon: React.ReactNode;
-//   text: string;
-//   onPress?: () => void;
-// }
-
-const SelectOptionButton = ({ icon: Icon, text }: SelectOptionButtonProps) => {
-    return (
-      <TouchableOpacity style={styles.button}>
-        <Icon width={20} height={20} />
-        <Text style={Typography.bodyLarge}>{text}</Text>
-      </TouchableOpacity>
-    );
-  };
-
-export default SelectOptionButton;
 
 const styles = StyleSheet.create({
   button: {
-    flexGrow: 1,
-    flexBasis: 0,
-    flexShrink: 1,
-    paddingVertical: 14,
-    borderRadius: 999,
-    backgroundColor: colors.surface,
+    flex: 1,
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
     justifyContent: 'center',
-    flexDirection: 'row',
-    gap: 6,
-    borderWidth: 1,
-    borderColor: colors.outline,
+    alignItems: 'center',
   },
-//   content: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   label: {
-//     marginLeft: 10,
-//     color: colors.onBackground,
-//   },
+  inner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6, // 최신 RN만 지원, 아니면 아이콘에 marginRight: 6
+  },
 });

@@ -4,13 +4,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import MainNavigator from './src/ui/navigation/MainNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import LoginPage from '@pages/LoginPage';
+import WaitingDebatePage from '@pages/WaitingDebatePage';
 
 const App = () => {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <WaitingDebatePage/>
+      {/* <NavigationContainer>
         <MainNavigator />
-      </NavigationContainer>
+      </NavigationContainer> */}
     </SafeAreaProvider>
   )
 }
