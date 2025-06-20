@@ -5,20 +5,30 @@ import { lightColors as colors } from '@theme/ColorScheme';
 
 interface ButtonProps {
   text: string;
-  backgroundColor: keyof typeof colors;  
+  backgroundColor: keyof typeof colors;
   textColor?: string;
+  selected?: boolean; // ✅ 추가
   onPress?: () => void;
 }
 
-const Button = ({ text, backgroundColor, textColor = colors.onPrimary, onPress }: ButtonProps) => {
+const Button = ({
+  text,
+  backgroundColor,
+  textColor = colors.onPrimary,
+  selected = false,
+  onPress,
+}: ButtonProps) => {
+  const bgColor = selected ? colors.primary : colors[backgroundColor];
+  const txtColor = selected ? colors.onPrimary : textColor;
+
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.8}
-      style={[styles.button, { backgroundColor: colors[backgroundColor] }]} 
+      style={[styles.button, { backgroundColor: bgColor }]}
     >
       <View style={styles.content}>
-        <Text style={[Typography.titleMedium, styles.text, { color: textColor }]}>{text}</Text>
+        <Text style={[Typography.titleMedium, styles.text, { color: txtColor }]}>{text}</Text>
       </View>
     </TouchableOpacity>
   );

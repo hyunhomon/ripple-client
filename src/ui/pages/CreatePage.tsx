@@ -1,103 +1,116 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import HeaderBar from '@components/HeaderBar';
-import SelectOptionButton from '@components/SelectOptionButton';
-
+import { View, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { lightColors as colors } from '@theme/ColorScheme';
-import WandIcon from '@icons/ic_wand.svg';
-import CancelIcon from '@icons/ic_cancel.svg';
-import FormatIcon from '@icons/ic_format.svg';
-import MicIcon from '@icons/ic_mic_on.svg';
+
+import HeaderBar from '@components/HeaderBar';
+import InfoText from '@components/InfoText';
+import SelectOptionGroup from '@components/SelectOptionGroup';
+import TextInputField from '@components/TextInputField';
+import IconInputField from '@components/IconInputField';
+
+import FormatIcon from '@icons/FormatIcon'
 import TimeIcon from '@icons/ic_time.svg';
 import PeopleIcon from '@icons/ic_people.svg';
-import { Typography } from '@theme/Typography';
-import Button from '@components/Button';
+import MicOnIcon from '@icons/ic_mic_on.svg';
+import MicOffIcon from '@icons/ic_mic_off.svg';
 
-const CreatePage = () => {
-  const [inputText, setInputText] = useState('');
+import { lightColors as colors } from '@theme/ColorScheme';
+import { TextInputComponent } from 'node_modules/react-native/types/index';
+
+export default function CreatePage() {
+  const [topic, setTopic] = useState('');
+  const [time, setTime] = useState('');
+  const [people, setPeople] = useState('');
+  const [selectedFormat, setSelectedFormat] = useState<string | null>(null);
+  const [selectedMode, setSelectedMode] = useState<string | null>(null);
+
+  const debateOptions = [
+    { label: '자유', icon: <FormatIcon fill = {selectedFormat === "자유"}/> },
+    { label: '정석', icon: <FormatIcon fill = {selectedFormat === "정석"}/> },
+    { label: '찬반', icon: <FormatIcon fill = {selectedFormat === "찬반"}/> },
+  ];
+
+  const modeOptions = [
+    { label: '보이스', icon: <MicOnIcon width={20} height={20} /> },
+    { label: '텍스트', icon: <MicOffIcon width={20} height={20} /> },
+  ];
 
   return (
-    <View style={{ flex: 1 }}>
-      <SafeAreaView style={{ backgroundColor: colors.surface }}>
-        <HeaderBar title="토론 생성" />
-      </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <HeaderBar title="토론 생성" />
 
-      <View style={styles.container}>
-        {/* Input Field */}
-        <View style={styles.inputBox}>
-          <View style={styles.inputField}>
-            <TextInput
-              placeholder="주제를 입력해주세요"
-              placeholderTextColor={colors.onSurface}
-              value={inputText}
-              onChangeText={setInputText}
-              style={[Typography.bodyLarge, styles.inputText]}
-            />
-            <TouchableOpacity onPress={() => setInputText('')}>
-              {inputText.length === 0 ? (
-                <WandIcon width={24} height={24} />
-              ) : (
-                <CancelIcon width={24} height={24} />
-              )}
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* First Row */}
+      <View style={styles.content}>
+        {/* 토론 형식 */}
+        <InfoText text="토론 형식" />
         <View style={styles.row}>
-          <SelectOptionButton icon={FormatIcon} text="정석" />
-          <SelectOptionButton icon={MicIcon} text="보이스" />
-        </View>
-
-        {/* Second Row */}
-        <View style={styles.row}>
-          <SelectOptionButton icon={TimeIcon} text="10분" />
-          <SelectOptionButton icon={PeopleIcon} text="10명" />
-        </View>
-        <Button
-            text = "생성"
-            backgroundColor='primary'             
+          <SelectOptionGroup
+            options={debateOptions}
+            defaultSelected={selectedFormat ?? undefined}
+            onSelect={setSelectedFormat}
+            // style={styles.flexRow}
           />
-      </View>
-    </View>
-  );
-};
+        </View>
 
-export default CreatePage;
+        {/* 주제 */}
+        <InfoText text="주제" />
+        <TextInputField
+          value={topic}
+          onChangeText={setTopic}
+          placeholder="토론 주제를 입력하세요"
+        />
+        {/* 시간 / 목표 인원 */}
+        <InfoText text="시간 / 목표 인원" />
+        <View style={styles.row}>
+          <IconInputField
+            value={time}
+            onChangeText={setTime}
+            placeholder="N분"
+            icon={<TimeIcon width={20} height={20} fill={colors.onSurface} />}
+          />
+          <IconInputField
+            value={people}
+            onChangeText={setPeople}
+            placeholder="N명"
+            icon={<PeopleIcon width={20} height={20} fill={colors.onSurface} />}
+          />
+        </View>
+
+        {/* 소통 방식 */}
+        <InfoText text="소통 방식" />
+        <View style={styles.row}>
+          <SelectOptionGroup
+            options={modeOptions}
+            defaultSelected={selectedMode ?? undefined}
+            onSelect={setSelectedMode}
+          />
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 20,
+    backgroundColor: colors.background,
+  },
+  content: {
+    paddingVertical: 10,
     paddingHorizontal: 16,
-  },
-  inputBox: {
-    flexDirection: 'column',
-    marginBottom: 14,
-  },
-  inputField: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.surface,
-    borderRadius: 999,
-    paddingHorizontal: 20,
-    paddingVertical: 14,
-    borderWidth: 1,
-    borderColor: colors.outline,
-  },
-  inputText: {
-    flex: 1,
-    color: colors.onBackground, 
+    gap: 10,
   },
   row: {
-    display: 'flex',
-    width: '100%',
     flexDirection: 'row',
-    gap: 8,
-    marginBottom: 14,
+    alignItems: 'center',
+    gap: 10,
+    flexWrap: 'wrap',
   },
-  text: {
-    fontSize: 18,
+  flexRow: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: 10,
+  },
+  iconMargin: {
+    marginRight: 8,
   },
 });
