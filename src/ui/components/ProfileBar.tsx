@@ -5,7 +5,7 @@ import { Typography } from '@theme/Typography';
 import { lightColors as colors } from '@theme/ColorScheme';
 
 interface ProfileBarProps {
-  name: string;
+  name: any;
   profileImage: any;
 }
 

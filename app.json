@@ -1,4 +1,7 @@
 {
   "name": "ripple",
-  "displayName": "ripple"
+  "displayName": "ripple",
+  "expo": {
+    "scheme": "ripple"
+  }
 }

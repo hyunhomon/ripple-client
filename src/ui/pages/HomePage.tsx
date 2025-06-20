@@ -5,14 +5,17 @@ import ProfileBar from '@components/ProfileBar';
 import UserStatsSection from '@components/UserStatsSection';
 import { lightColors as colors } from '@theme/ColorScheme';
 import LevelProgress from '@components/LevelProgress';
+import { useUserStore } from '../../hooks/useUserStore';
 
 const HomePage = () => {
+  const user = useUserStore((state) => state.user);
+
   return (
     <View style={{ flex: 1 }}>
       <SafeAreaView style={{ backgroundColor: colors.surface }}>
         <ProfileBar
-          name="김현호"
-          profileImage={{ uri: 'https://randomuser.me/api/portraits/men/75.jpg' }}
+          name={user?.kakao_account.birthyear}
+          profileImage={{ uri: user?.kakao_account.profile.profile_image_url }}
         />
       </SafeAreaView>
 

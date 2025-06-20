@@ -1,12 +1,19 @@
 // LoginPage.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Typography } from '@theme/Typography';
 import { lightColors as colors } from '@theme/ColorScheme';
 import KaKaoButton from '@components/KakaoButton';
+import { useKakaoLogin } from '../../hooks/useKakaoLogin';
 
 const LoginPage = () => {
+  const {data, startLogin} = useKakaoLogin();
+
+  useEffect(() => {
+    // setUserInfo()
+  }, [])
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
@@ -20,8 +27,9 @@ const LoginPage = () => {
             토론을 시작해볼까요?
           </Text>
           <Text style={[Typography.bodyLarge, styles.subtitle]}>
-            리플에서는 시간을 정해두고 토론을 할 수 있어요.{"\n"}
-            원하는 방에 들어가 토론을 시작해보세요.
+            {/* 리플에서는 시간을 정해두고 토론을 할 수 있어요.{"\n"}
+            원하는 방에 들어가 토론을 시작해보세요. */}
+            {`${data?.user.connected_at}`}
           </Text>
         </View>
 
@@ -30,6 +38,7 @@ const LoginPage = () => {
             text="카카오 로그인"
             backgroundColor="#F7E600"
             iconSource={require('@icons/ic_kakao.png')}
+            onPress={startLogin}
           />
         </View>
       </ImageBackground>
