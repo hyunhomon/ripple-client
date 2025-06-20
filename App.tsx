@@ -18,12 +18,14 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const App = () => {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={LoginPage} />
-          <Stack.Screen name="Home" component={MainNavigator} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <GestureHandlerRootView>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Login" component={LoginPage} />
+            <Stack.Screen name="Home" component={MainNavigator} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   );
 };

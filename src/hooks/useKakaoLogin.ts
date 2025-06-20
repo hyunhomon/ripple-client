@@ -16,6 +16,7 @@ export function useKakaoLogin() {
 
   useEffect(() => {
     const onReceiveUrl = async ({ url }: { url: string }) => {
+      console.log(url);
       const matched = url.match(/code=([^&]+)/);
       if (!matched) return;
       const code = matched[1];
