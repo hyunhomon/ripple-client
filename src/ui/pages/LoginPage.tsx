@@ -27,9 +27,8 @@ const LoginPage = () => {
             토론을 시작해볼까요?
           </Text>
           <Text style={[Typography.bodyLarge, styles.subtitle]}>
-            {/* 리플에서는 시간을 정해두고 토론을 할 수 있어요.{"\n"}
-            원하는 방에 들어가 토론을 시작해보세요. */}
-            {`${data?.user.connected_at}`}
+            리플에서는 시간을 정해두고 토론을 할 수 있어요.{"\n"}
+            원하는 방에 들어가 토론을 시작해보세요.
           </Text>
         </View>
 

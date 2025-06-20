@@ -23,11 +23,9 @@ export function useKakaoLogin() {
 
       if (!res) return;
       setData(res);
-      saveTokens(res.token.access_token, res.token.refresh_token);
-      setUser(res.user);
 
       // navigate
-      // navigation.navigate('Home');
+      navigation.navigate('Home');
     };
     const sub = Linking.addEventListener('url', onReceiveUrl);
 
