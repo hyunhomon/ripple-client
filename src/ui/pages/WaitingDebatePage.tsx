@@ -25,7 +25,7 @@ interface Message {
 }
 
 export default function WaitingDebatePage({ route }: any) {
-  const { topic, current = 0, total = 10 } = route.params;
+  // const { topic, current = 0, total = 10 } = route.params;
 
   const [messages, setMessages] = useState<Message[]>([
     { sender: 'other', text: '안녕하세요. 여성징병제에 대해 어떻게 생각하시나요?' },
@@ -49,12 +49,6 @@ export default function WaitingDebatePage({ route }: any) {
 
   return (
     <>
-      {/* 어두운 배경 오버레이 */}
-      {isSheetOpen && (
-        <View style={styles.overlay}>
-          <Pressable style={{ flex: 1 }} onPress={() => sheetRef.current?.close()} />
-        </View>
-      )}
 
       <KeyboardAvoidingView
         style={styles.container}
@@ -62,7 +56,7 @@ export default function WaitingDebatePage({ route }: any) {
       >
         <SafeAreaView style={{ backgroundColor: colors.surface }}>
           <GoBackBar
-            title={topic}
+            title={"Asdf"}
             leftIcon={<GoBackIcon width={24} height={24} />}
             rightIcon={<InfoIcon width={24} height={24} />}
             onRightPress={() => sheetRef.current?.snapToIndex(0)}
