@@ -7,6 +7,7 @@ import InfoText from '@components/InfoText';
 import SelectOptionGroup from '@components/SelectOptionGroup';
 import TextInputField from '@components/TextInputField';
 import IconInputField from '@components/IconInputField';
+import Button from '@components/Button';
 
 import FormatIcon from '@icons/FormatIcon'
 import TimeIcon from '@icons/ic_time.svg';
@@ -17,12 +18,14 @@ import MicOffIcon from '@icons/ic_mic_off.svg';
 import { lightColors as colors } from '@theme/ColorScheme';
 import { TextInputComponent } from 'node_modules/react-native/types/index';
 
+
 export default function CreatePage() {
   const [topic, setTopic] = useState('');
   const [time, setTime] = useState('');
   const [people, setPeople] = useState('');
   const [selectedFormat, setSelectedFormat] = useState<string | null>(null);
   const [selectedMode, setSelectedMode] = useState<string | null>(null);
+  const allFieldsFilled = topic && time && people && selectedFormat && selectedMode;
 
   const debateOptions = [
     { label: '자유', icon: <FormatIcon fill = {selectedFormat === "자유"}/> },
@@ -31,8 +34,8 @@ export default function CreatePage() {
   ];
 
   const modeOptions = [
-    { label: '보이스', icon: <MicOnIcon width={20} height={20} /> },
-    { label: '텍스트', icon: <MicOffIcon width={20} height={20} /> },
+    { label: '보이스', icon: <MicOnIcon width={20} height={20}/> },
+    { label: '텍스트', icon: <MicOffIcon width={20} height={20}/> },
   ];
 
   return (
@@ -76,12 +79,24 @@ export default function CreatePage() {
         </View>
 
         {/* 소통 방식 */}
-        <InfoText text="소통 방식" />
+        <InfoText text="소통 방식"/>
+        
+         {/* ← 마지막 InfoText 뒤 */}
         <View style={styles.row}>
           <SelectOptionGroup
             options={modeOptions}
             defaultSelected={selectedMode ?? undefined}
             onSelect={setSelectedMode}
+          />
+        </View>
+        <View style={{ marginTop: 20 }}>
+          <Button
+            text="생성"
+            backgroundColor={allFieldsFilled ? 'primary' : 'surface'}
+            textColor={allFieldsFilled ? colors.onPrimary : colors.onSurfaceVariant}
+            onPress={() => {
+              if (!allFieldsFilled) return;
+            }}
           />
         </View>
       </View>

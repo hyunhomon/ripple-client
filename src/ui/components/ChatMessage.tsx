@@ -3,76 +3,56 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { lightColors as colors } from '@theme/ColorScheme';
 import { Typography } from '@theme/Typography';
 
-type ChatMessageProps = {
-  isMine: boolean;
+interface ChatMessageProps {
+  sender: 'me' | 'other';
   message: string;
   profileImage?: string;
-  isFirstInGroup?: boolean;
-};
+}
 
-export default function ChatMessage({
-  isMine,
-  message,
-  profileImage,
-  isFirstInGroup = true,
-}: ChatMessageProps) {
+const ChatMessage = ({ sender, message, profileImage }: ChatMessageProps) => {
+  const isMine = sender === 'me';
+
   return (
-    <View
-      style={[
-        styles.messageContainer,
-        isMine ? styles.alignRight : styles.alignLeft,
-        !isFirstInGroup && styles.continuedMessage,
-      ]}
-    >
-      {!isMine && isFirstInGroup && (
+    <View style={[styles.messageContainer, isMine ? styles.alignRight : styles.alignLeft]}>
+      {/* 상대방만 프로필 이미지 표시 */}
+      {!isMine && profileImage && (
         <Image source={{ uri: profileImage }} style={styles.avatar} />
       )}
-      <View
-        style={[
-          styles.bubble,
-          isMine ? styles.myBubble : styles.otherBubble,
-        ]}
-      >
-        <Text
-          style={[
-            Typography.bodyMedium,
-            { color: isMine ? colors.onPrimary : colors.onBackground },
-          ]}
-        >
+      <View style={[styles.bubble, isMine ? styles.myBubble : styles.otherBubble]}>
+        <Text style={[Typography.bodyMedium, { color: isMine ? colors.onPrimary : colors.onSurface }]}>
           {message}
         </Text>
       </View>
     </View>
   );
-}
+};
+
+export default ChatMessage;
 
 const styles = StyleSheet.create({
   messageContainer: {
     flexDirection: 'row',
-    paddingVertical: 6,
-    paddingHorizontal: 20,
-    alignItems: 'flex-start',
-  },
-  continuedMessage: {
-    paddingTop: 1,
-    paddingBottom: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 4,
+    alignItems: 'flex-end',
   },
   alignLeft: {
     justifyContent: 'flex-start',
+    flexDirection: 'row',
   },
   alignRight: {
     justifyContent: 'flex-end',
+    flexDirection: 'row-reverse',
   },
   avatar: {
     width: 28,
     height: 28,
     borderRadius: 14,
-    marginRight: 6,
-    marginTop: 2,
+    marginHorizontal: 6,
   },
   bubble: {
     maxWidth: '75%',
-    borderRadius: 12,
+    borderRadius: 14,
     paddingVertical: 8,
     paddingHorizontal: 12,
     flexShrink: 1,

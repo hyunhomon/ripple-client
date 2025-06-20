@@ -57,6 +57,6 @@ const styles = StyleSheet.create({
   inner: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6, // 최신 RN만 지원, 아니면 아이콘에 marginRight: 6
+    gap: 6, 
   },
 });

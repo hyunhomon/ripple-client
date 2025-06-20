@@ -28,6 +28,7 @@ const MainNavigator = () => {
       <Tab.Screen name="Create" component={CreatePage} />
       <Tab.Screen name="Spectate" component={SpectatePage} />
       <Tab.Screen name="Gallery" component={GalleryPage} />
+      
     </Tab.Navigator>
   );
 };

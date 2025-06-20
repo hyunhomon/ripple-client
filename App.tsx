@@ -1,8 +1,10 @@
 import React from 'react';
+import HomePage from '@pages/HomePage';
 import { NavigationContainer } from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import MainNavigator from './src/ui/navigation/MainNavigator';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import LoginPage from '@pages/LoginPage';
 import WaitingDebatePage from '@pages/WaitingDebatePage';
 
