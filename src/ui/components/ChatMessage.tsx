@@ -19,7 +19,7 @@ const ChatMessage = ({ sender, message, profileImage }: ChatMessageProps) => {
         <Image source={{ uri: profileImage }} style={styles.avatar} />
       )}
       <View style={[styles.bubble, isMine ? styles.myBubble : styles.otherBubble]}>
-        <Text style={[Typography.bodyMedium, { color: isMine ? colors.onPrimary : colors.onSurface }]}>
+        <Text style={[Typography.bodyMedium, { color: isMine ? colors.onPrimary : colors.onBackground }]}>
           {message}
         </Text>
       </View>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   alignRight: {
     justifyContent: 'flex-end',
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
   },
   avatar: {
     width: 28,
@@ -62,5 +62,6 @@ const styles = StyleSheet.create({
   },
   myBubble: {
     backgroundColor: colors.primary,
+    justifyContent: 'flex-end',
   },
 });

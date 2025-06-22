@@ -11,6 +11,7 @@ import WaitingDebatePage from '@pages/WaitingDebatePage';
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
+  WaitingDebate: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -23,6 +24,7 @@ const App = () => {
           <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={LoginPage} />
             <Stack.Screen name="Home" component={MainNavigator} />
+            <Stack.Screen name="WaitingDebate" component={WaitingDebatePage} />
           </Stack.Navigator>
         </NavigationContainer>
       </GestureHandlerRootView>

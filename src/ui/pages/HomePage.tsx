@@ -14,7 +14,7 @@ const HomePage = () => {
     <View style={{ flex: 1 }}>
       <SafeAreaView style={{ backgroundColor: colors.surface }}>
         <ProfileBar
-          name={user?.kakao_account.birthyear}
+          name={"김현호"}
           profileImage={{ uri: user?.kakao_account.profile.profile_image_url }}
         />
       </SafeAreaView>

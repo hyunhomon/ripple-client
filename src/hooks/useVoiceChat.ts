@@ -9,10 +9,15 @@ import {
 } from '../models/udpModels';
 import { PORT, sendUdpMessage } from '../repository/udpRepository';
 
+interface Message {
+  sender: 'me' | 'other';
+  text: string;
+}
+
 export function useVoiceChat(player_id: string, channel_id: string) {
   const [players, setPlayers] = useState<string[]>([]);
   const [micOn, setMicOn] = useState(false);
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const socketRef = useRef<any>(null);
 
   useEffect(() => {
@@ -23,7 +28,7 @@ export function useVoiceChat(player_id: string, channel_id: string) {
         const res = JSON.parse(msg.toString());
         switch (res.type) {
           case 'message':
-            setMessages(prev => [...prev, `${res.player_id}: ${res.data}`]);
+            setMessages(prev => [...prev, { sender: res.player_id == player_id ? 'me' : 'other', text: res.data}]);
             break;
           case 'voice':
             break;

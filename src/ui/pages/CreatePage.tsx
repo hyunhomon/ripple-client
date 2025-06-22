@@ -18,6 +18,10 @@ import MicOffIcon from '@icons/ic_mic_off.svg';
 import { lightColors as colors } from '@theme/ColorScheme';
 import { TextInputComponent } from 'node_modules/react-native/types/index';
 
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../App';
+
 
 export default function CreatePage() {
   const [topic, setTopic] = useState('');
@@ -26,6 +30,7 @@ export default function CreatePage() {
   const [selectedFormat, setSelectedFormat] = useState<string | null>(null);
   const [selectedMode, setSelectedMode] = useState<string | null>(null);
   const allFieldsFilled = topic && time && people && selectedFormat && selectedMode;
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const debateOptions = [
     { label: '자유', icon: <FormatIcon fill = {selectedFormat === "자유"}/> },
@@ -96,6 +101,7 @@ export default function CreatePage() {
             textColor={allFieldsFilled ? colors.onPrimary : colors.onSurfaceVariant}
             onPress={() => {
               if (!allFieldsFilled) return;
+              navigation.navigate('WaitingDebate');
             }}
           />
         </View>
