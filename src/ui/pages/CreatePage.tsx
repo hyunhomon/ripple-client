@@ -101,7 +101,7 @@ export default function CreatePage() {
             textColor={allFieldsFilled ? colors.onPrimary : colors.onSurfaceVariant}
             onPress={() => {
               if (!allFieldsFilled) return;
-              navigation.navigate('WaitingDebate');
+              navigation.navigate('WaitingDebate', {player_id: topic});
             }}
           />
         </View>

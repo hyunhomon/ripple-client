@@ -1,8 +1,6 @@
 import dgram from 'react-native-udp';
-import {
-  UdpRequest,
-  UdpResponse,
-} from '../models/udpModels';
+import { Buffer } from 'buffer';
+import { UdpRequest, UdpResponse } from '../models/udpModels';
 
 type UdpSocket = ReturnType<typeof dgram.createSocket>;
 
@@ -17,31 +15,46 @@ export async function sendUdpMessage<T extends UdpRequest, R extends UdpResponse
     const payload = Buffer.from(JSON.stringify(message));
     let isResolved = false;
 
+    console.log('[UDP] Sending:', message);
+
     const timeout = setTimeout(() => {
-      if (!isResolved) reject(new Error('UDP 응답 타임아웃'));
+      if (!isResolved) {
+        console.warn('[UDP] Timeout: No response received');
+        socket.off('message', listener);
+        reject(new Error('UDP 응답 타임아웃'));
+      }
     }, 3000);
 
     const listener = (msg: Buffer) => {
       try {
-        const res: R = JSON.parse(msg.toString());
+        const raw = msg.toString();
+        console.log('[UDP] Received raw:', raw);
+        const res: R = JSON.parse(raw);
+
         if (res.type === message.type) {
+          isResolved = true;
           clearTimeout(timeout);
           socket.off('message', listener);
+          console.log('[UDP] Matched response:', res);
           resolve(res);
-          isResolved = true;
+        } else {
+          console.log('[UDP] Unmatched response (ignored):', res);
         }
       } catch (e) {
-        // 무시
+        console.warn('[UDP] Failed to parse message:', e);
       }
     };
 
-    socket.on('message', listener);
+    socket.once('message', listener);
 
     socket.send(payload, 0, payload.length, PORT, HOST, (err) => {
       if (err) {
         clearTimeout(timeout);
         socket.off('message', listener);
+        console.error('[UDP] Send error:', err);
         reject(err);
+      } else {
+        console.log('[UDP] Payload sent to', HOST, PORT);
       }
     });
   });

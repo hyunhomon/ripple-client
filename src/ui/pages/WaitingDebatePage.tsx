@@ -21,13 +21,19 @@ import { lightColors as colors } from '@theme/ColorScheme';
 
 import { useVoiceChat } from '../../hooks/useVoiceChat';
 
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../../../App'; // ↓ 예시 타입 선언 참고
+
+type WaitingDebateRouteProp = RouteProp<RootStackParamList, 'WaitingDebate'>;
+
 interface Message {
   sender: 'me' | 'other';
   text: string;
 }
 
 export default function WaitingDebatePage({ route }: any) {
-  const playerId = 'meda'
+  const routes = useRoute<WaitingDebateRouteProp>();
+  const { player_id } = routes.params;
   const {
     players,
     micOn,
@@ -37,7 +43,7 @@ export default function WaitingDebatePage({ route }: any) {
     sendMic,
     sendVoice,
     sendMessage,
-  } = useVoiceChat(playerId, 'test');
+  } = useVoiceChat(player_id, 'test4');
   // const { topic, current = 0, total = 10 } = route.params;
 
 //   const [messages, setMessages] = useState<Message[]>([

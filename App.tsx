@@ -11,7 +11,7 @@ import WaitingDebatePage from '@pages/WaitingDebatePage';
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
-  WaitingDebate: undefined;
+  WaitingDebate: {player_id: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

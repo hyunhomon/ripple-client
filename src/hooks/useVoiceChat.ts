@@ -6,6 +6,7 @@ import {
   MicRequest,
   VoiceRequest,
   MessageRequest,
+  UdpResponse,
 } from '../models/udpModels';
 import { PORT, sendUdpMessage } from '../repository/udpRepository';
 
@@ -18,19 +19,27 @@ export function useVoiceChat(player_id: string, channel_id: string) {
   const [players, setPlayers] = useState<string[]>([]);
   const [micOn, setMicOn] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const socketRef = useRef<any>(null);
+  const socketRef = useRef<ReturnType<typeof dgram.createSocket> | null>(null);
 
   useEffect(() => {
-    const socket = dgram.createSocket({type: 'udp4'});
+    const socket = dgram.createSocket({ type: 'udp4' });
     socket.bind(PORT);
+
     socket.on('message', (msg) => {
       try {
-        const res = JSON.parse(msg.toString());
+        const raw = msg.toString();
+        console.log('[Hook] Incoming message:', raw);
+        const res: UdpResponse = JSON.parse(raw);
+
         switch (res.type) {
           case 'message':
-            setMessages(prev => [...prev, { sender: res.player_id == player_id ? 'me' : 'other', text: res.data}]);
+            setMessages(prev => [...prev, {
+              sender: res.player_id === player_id ? 'me' : 'other',
+              text: res.data
+            }]);
             break;
           case 'voice':
+            // future implementation
             break;
           case 'join':
           case 'leave':
@@ -40,9 +49,11 @@ export function useVoiceChat(player_id: string, channel_id: string) {
             setMicOn(res.data);
             setPlayers(res.players);
             break;
+          default:
+            break;
         }
       } catch (e) {
-        console.error('수신 파싱 실패:', e);
+        console.error('[Hook] 수신 파싱 실패:', e);
       }
     });
 
@@ -57,27 +68,49 @@ export function useVoiceChat(player_id: string, channel_id: string) {
 
   const sendJoin = async () => {
     const req: JoinRequest = { type: 'join', player_id, channel_id };
-    await sendUdpMessage(socketRef.current, req);
+    try {
+      await sendUdpMessage(socketRef.current!, req);
+    } catch (err) {
+      console.error('[sendJoin] Error:', err);
+    }
   };
 
   const sendLeave = async () => {
     const req: LeaveRequest = { type: 'leave', player_id, channel_id };
-    await sendUdpMessage(socketRef.current, req);
+    try {
+      await sendUdpMessage(socketRef.current!, req);
+    } catch (err) {
+      console.error('[sendLeave] Error:', err);
+    }
   };
 
   const sendMic = async (state: boolean) => {
     const req: MicRequest = { type: 'mic', player_id, channel_id, data: state };
-    await sendUdpMessage(socketRef.current, req);
+    try {
+      await sendUdpMessage(socketRef.current!, req);
+    } catch (err) {
+      console.error('[sendMic] Error:', err);
+    }
   };
 
   const sendVoice = async (data: string) => {
     const req: VoiceRequest = { type: 'voice', player_id, channel_id, data };
-    await sendUdpMessage(socketRef.current, req);
+    try {
+      await sendUdpMessage(socketRef.current!, req);
+    } catch (err) {
+      console.error('[sendVoice] Error:', err);
+    }
   };
 
   const sendMessage = async (text: string) => {
     const req: MessageRequest = { type: 'message', player_id, channel_id, data: text };
-    await sendUdpMessage(socketRef.current, req);
+    console.log('[Hook] Sending message:', req);
+    try {
+      await sendUdpMessage(socketRef.current!, req);
+      console.log('[Hook] Message sent successfully');
+    } catch (err) {
+      console.error('[sendMessage] Error:', err);
+    }
   };
 
   return {
